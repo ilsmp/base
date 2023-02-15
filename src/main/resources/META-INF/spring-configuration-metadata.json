@@ -1,0 +1,89 @@
+{
+  "properties": [
+    {
+      "sourceType": "com.ilsmp.base.auto.BaseProperties",
+      "name": "spring.base.user-id",
+      "type": "java.lang.String",
+      "description": "用户ID标识的字段名",
+      "defaultValue": "user-id"
+    },
+    {
+      "sourceType": "com.ilsmp.base.auto.BaseProperties",
+      "name": "spring.base.entity-scan",
+      "type": "java.lang.String",
+      "description": "实体类扫描包",
+      "defaultValue": "com.*.*"
+    },
+    {
+      "sourceType": "com.ilsmp.base.auto.BaseProperties",
+      "name": "spring.base.component-scan",
+      "type": "java.lang.String",
+      "description": "配置类扫描包",
+      "defaultValue": "com.*.*"
+    },
+    {
+      "sourceType": "com.ilsmp.base.auto.BaseProperties",
+      "name": "spring.base.nacos-addr",
+      "type": "java.lang.String",
+      "description": "nacos server ip 配置",
+      "defaultValue": "localhost:8848"
+    },
+    {
+      "sourceType": "com.ilsmp.base.auto.BaseProperties",
+      "name": "spring.base.allow-age",
+      "type": "java.lang.Long",
+      "description": "最大超时时间s",
+      "defaultValue": 3600
+    },
+    {
+      "sourceType": "com.ilsmp.base.auto.BaseProperties",
+      "name": "spring.base.allow-credential",
+      "type": "java.lang.Boolean",
+      "description": "是否允许携带cookie",
+      "defaultValue": true
+    },
+    {
+      "sourceType": "com.ilsmp.base.auto.BaseProperties",
+      "name": "spring.base.allow-method",
+      "type": "java.lang.String",
+      "description": "允许哪些类型请求",
+      "defaultValue": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+    },
+    {
+      "sourceType": "com.ilsmp.base.auto.BaseProperties",
+      "name": "spring.base.allow-header",
+      "type": "java.lang.String",
+      "description": "允许的请求头",
+      "defaultValue": "Origin,Content-Type,Accept,request-id,token,user-id"
+    },
+    {
+      "sourceType": "com.ilsmp.base.auto.BaseProperties",
+      "name": "spring.base.allow-origin",
+      "type": "java.lang.String",
+      "description": "跨域白名单,多个用逗号隔开",
+      "defaultValue": "*"
+    },
+    {
+      "sourceType": "com.ilsmp.base.auto.BaseProperties",
+      "name": "spring.base.api-doc",
+      "type": "java.lang.Boolean",
+      "description": "是否允许生成线下接口文档",
+      "defaultValue": true
+    },
+    {
+      "sourceType": "com.ilsmp.base.auto.BaseProperties",
+      "name": "spring.base.api-enable",
+      "type": "java.lang.Boolean",
+      "description": "是否允许打开在线接口文档",
+      "defaultValue": true
+    },
+    {
+      "sourceType": "com.ilsmp.base.auto.BaseProperties",
+      "name": "spring.base.multi-db",
+      "type": "java.lang.Boolean",
+      "description": "是否允许多数据库配置",
+      "defaultValue": true
+    }
+
+  ]
+}

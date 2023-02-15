@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<script>
+    function loadLastLoc() {
+        var param = {};
+        var alarm = {};
+        alarm.id = 12;
+        alarm.updateVersion = 1596079927473;
+        alarm.reading = false;
+        param.alarm = alarm;
+        param.userId = "666";
+        $.ajax({
+            url: 'http://localhost:6333/project/alarm/update',
+            dataType: 'json',
+            type: 'post',
+            contentType: "application/json;charset=UTF-8",
+            // traditional:true,
+            headers: {"token": "111"},
+            data: param,
+            async: false,//解决有时不进success中问题
+            success: function (result) {
+                if (result.code === "200") {
+                    console.log(result.result);
+                }
+            },
+            fail: function (status) {
+                // 此处放失败后执行的代码
+                console.log(status.toString());
+            }
+        })
+    }
+    loadLastLoc();
+</script>
+</body>
+</html>
