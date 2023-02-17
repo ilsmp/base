@@ -243,7 +243,7 @@ public class RestTemplateUtil {
     }
 
     public static <T> T postEntity(String url, Object requestBody, Class<T> responseType) {
-        return postEntity(url, requestBody, responseType);
+        return post(url, requestBody, responseType).getBody();
     }
 
     /**
