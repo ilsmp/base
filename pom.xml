@@ -12,7 +12,7 @@
     <artifactId>base-spring-boot-starter</artifactId>
     <version>1.0.0</version>
     <name>base</name>
-    <description>配置springboot的基础配置</description>
+    <description>配置springboot的基础配置,与IDEA的Base插件配合使用效果更佳</description>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -118,6 +118,117 @@
                     <includeSystemScope>true</includeSystemScope>
                 </configuration>
             </plugin>
+            <!-- 生成javadoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <source>${java.version}</source>
+                    <!-- 禁用do不严格检查 -->
+                    <additionalJOption>-Xdoclint:none</additionalJOption>
+                    <!-- 文档解析出错时仍然继续 -->
+                    <failOnError>false</failOnError>
+                </configuration>
+            </plugin>
+            <!-- 打包resources -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 打包源码 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+            <!-- gpg认证 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--用于部署和发布的 Nexus Staging Maven 插件-->
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>nexus-center</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+    <!--添加部署配置-->
+    <!-- 许可证类型，一般与项目仓库保持一致 -->
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <!-- 开发者信息 -->
+    <developers>
+        <developer>
+            <name>zjh</name>
+            <email>981163085@qq.com</email>
+            <organization>ilsmp</organization>
+        </developer>
+    </developers>
+    <profiles>
+        <profile>
+            <id>nexus-center</id>
+            <properties>
+                <gpg.keyname>D6596F5F8371FB5E</gpg.keyname>
+            </properties>
+        </profile>
+    </profiles>
+    <distributionManagement>
+        <snapshotRepository>
+            <!-- 此处id与setting.xml中的服务id保持一致 -->
+            <id>nexus-center</id>
+            <name>oss Snapshots Repository</name>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <!-- 此处id与setting.xml中的服务id保持一致 -->
+            <id>nexus-center</id>
+            <name>oss Staging Repository</name>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 </project>
