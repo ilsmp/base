@@ -15,6 +15,9 @@
     <description>配置springboot的基础配置,与IDEA的Base插件配合使用效果更佳</description>
     <properties>
         <java.version>11</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <gpg.executable>gpg2</gpg.executable>
     </properties>
 
     <dependencies>
@@ -138,6 +141,20 @@
                     <!-- 文档解析出错时仍然继续 -->
                     <failOnError>false</failOnError>
                 </configuration>
+            </plugin>
+            <!-- 打包resources -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <!-- gpg认证 -->
             <plugin>
