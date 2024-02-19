@@ -1859,7 +1859,7 @@ public class TimeUtil {
     }
 
     public static String obtainCurrentTimeNum() {
-        DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss.SSS");
         return format.format(new Date());
     }
 
@@ -1874,26 +1874,16 @@ public class TimeUtil {
 
     public static Date string0To8DateTime(String string) {
         Date date = new Date();
-        SimpleDateFormat sdf0 = new SimpleDateFormat("ddMMyy-HHmmss");
-        //设置时区为格林尼治
-        sdf0.setTimeZone(TimeZone.getTimeZone("GMT+0:00"));
-        try {
-            date = sdf0.parse(string);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         SimpleDateFormat sdf8 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        //设置时区为东八区
-        sdf8.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
         try {
-            date = sdf8.parse(sdf8.format(date));
+            date = sdf8.parse(string0To8(string));
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return date;
     }
 
-    public static String string0TimeZone8(String string) {
+    public static String string0To8(String string) {
         Date date = new Date();
         SimpleDateFormat sdf0 = new SimpleDateFormat("ddMMyy-HHmmss");
         //设置时区为格林尼治

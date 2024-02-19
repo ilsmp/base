@@ -9,6 +9,7 @@ import com.ilsmp.base.util.ServletUtil;
 import com.ilsmp.base.util.TimeUtil;
 import com.sun.istack.NotNull;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.ContentCachingRequestWrapper;
@@ -34,6 +35,8 @@ public class WebApiInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                              @NotNull Object o) throws Exception {
         System.out.println("进入拦截器,请求之前");
+        long start = System.currentTimeMillis();
+
         // 打印参数
         printHeaderAndBody(httpServletRequest, httpServletResponse);
         return true;
@@ -48,12 +51,12 @@ public class WebApiInterceptor implements HandlerInterceptor {
                 + httpServletRequest.getRequestURI() + "_"
                 + UUID.randomUUID();
         httpServletResponse.addHeader("request-id", requestId);
+        MDC.put("request-id", requestId);
 
         // 打印参数
         if (httpServletRequest instanceof ContentCachingRequestWrapper) {
             ContentCachingRequestWrapper requestWrapper = (ContentCachingRequestWrapper) httpServletRequest;
-            log.info("\n===request-id:" + requestId
-                    + "\n===header:" + ServletUtil.getRequestHeaderString(requestWrapper)
+            log.info("\n===header:" + ServletUtil.getRequestHeaderString(requestWrapper)
                     + "\n===param:" + ServletUtil.getRequestParamString(requestWrapper)
                     + "\n===body:" + ServletUtil.getRequestBodyString(requestWrapper));
         }
@@ -93,5 +96,10 @@ public class WebApiInterceptor implements HandlerInterceptor {
     public void afterCompletion(@NotNull HttpServletRequest httpServletRequest, @NotNull HttpServletResponse
             httpServletResponse, @NotNull Object o, Exception e) {
         System.out.println("进入拦截器,请求完成");
+        String requestId = ServletUtil.getRequestHeader("request-id");
+        if (!requestId.isEmpty()) {
+            long time = Long.parseLong(TimeUtil.obtainCurrentTimeNum()) - Long.parseLong(requestId.split("_")[0]);
+            System.out.println("耗时:" + time + "s");
+        }
     }
 }
