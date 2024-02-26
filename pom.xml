@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.7</version>
+        <version>3.0.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.ilsmp</groupId>
     <artifactId>base-spring-boot-starter</artifactId>
     <version>1.0.0</version>
     <name>base</name>
-    <description>配置springboot的基础配置,与IDEA的Base插件配合使用效果更佳</description>
+    <description>配置springBoot的基础配置,与IDEA的Base插件配合使用效果更佳</description>
     <properties>
         <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -41,13 +41,13 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.2.5</version>
+            <version>1.2.21</version>
         </dependency>
         <!-- mysql 开始-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.21</version>
+            <version>8.0.33</version>
         </dependency>
         <!-- thymeleaf 开始-->
         <dependency>
@@ -74,19 +74,19 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-spatial</artifactId>
-            <version>5.4.16.Final</version>
+            <version>6.4.3.Final</version>
         </dependency>
         <!-- json-path -->
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
-            <version>2.7.0</version>
+            <version>2.9.0</version>
         </dependency>
         <!-- hutool-core包括集合、字符串、Bean等工具 -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-core</artifactId>
-            <version>5.8.9</version>
+            <version>5.8.26</version>
         </dependency>
         <!--========================================= 基础依赖禁止修改 结束=============================================-->
         <dependency>
