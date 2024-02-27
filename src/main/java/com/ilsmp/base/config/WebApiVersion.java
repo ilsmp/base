@@ -1,7 +1,6 @@
 package com.ilsmp.base.config;
 
 
-import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,6 +10,7 @@ import java.lang.reflect.Method;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;

@@ -1,7 +1,7 @@
 package com.ilsmp.base.auto;
 
-import javax.annotation.Resource;
 
+import jakarta.annotation.Resource;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;

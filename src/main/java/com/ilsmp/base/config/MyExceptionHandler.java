@@ -1,7 +1,6 @@
 package com.ilsmp.base.config;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -9,6 +8,8 @@ import com.ilsmp.base.BaseController;
 import com.ilsmp.base.util.JsonUtil;
 import com.ilsmp.base.util.Response;
 import com.ilsmp.base.util.StringUtil;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -40,7 +41,7 @@ public class MyExceptionHandler {
             message = "请求异常请查看日志或联系管理员";
         }
         if (ex instanceof HttpStatusCodeException) {
-            return Response.withBody(message, ((HttpStatusCodeException) ex).getStatusCode());
+            return Response.withBody(message, HttpStatus.valueOf(((HttpStatusCodeException) ex).getStatusCode().value()));
         } else {
             return Response.withBody(message, HttpStatus.valueOf(400));
         }

@@ -1,6 +1,5 @@
 package com.ilsmp.base.config;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,6 +35,7 @@ import com.ilsmp.base.util.ServletUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
+import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

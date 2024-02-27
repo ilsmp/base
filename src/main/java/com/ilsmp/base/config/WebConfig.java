@@ -1,6 +1,5 @@
 package com.ilsmp.base.config;
 
-import javax.servlet.ServletContext;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ilsmp.base.util.JsonUtil;
+import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;

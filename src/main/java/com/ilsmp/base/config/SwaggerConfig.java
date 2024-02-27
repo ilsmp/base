@@ -1,7 +1,5 @@
 package com.ilsmp.base.config;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,6 +11,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
@@ -205,7 +205,8 @@ public class SwaggerConfig {
     }
 
     /**
-     * 增加如下配置可解决Spring Boot 6.x 与Swagger 3.0.0 不兼容问题
+     * 增加如下配置可解决
+     * Spring Boot 2.6.x 与Swagger 3.0.0 不兼容问题
      **/
     @Bean
     public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(
@@ -216,7 +217,7 @@ public class SwaggerConfig {
             CorsEndpointProperties corsProperties,
             WebEndpointProperties webEndpointProperties,
             Environment environment) {
-        List<ExposableEndpoint<?>> allEndpoints = new ArrayList();
+        List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
         Collection<ExposableWebEndpoint> webEndpoints = webEndpointsSupplier.getEndpoints();
         allEndpoints.addAll(webEndpoints);
         allEndpoints.addAll(servletEndpointsSupplier.getEndpoints());
@@ -226,7 +227,7 @@ public class SwaggerConfig {
         boolean shouldRegisterLinksMapping = webEndpointProperties.getDiscovery().isEnabled()
                         && (StringUtils.hasText(basePath)
                         || ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT));
-        return new WebMvcEndpointHandlerMapping(endpointMapping, webEndpoints, endpointMediaTypes, corsProperties.toCorsConfiguration(), new EndpointLinksResolver(allEndpoints, basePath), shouldRegisterLinksMapping, null);
+        return new WebMvcEndpointHandlerMapping(endpointMapping, webEndpoints, endpointMediaTypes, corsProperties.toCorsConfiguration(), new EndpointLinksResolver(allEndpoints, basePath), shouldRegisterLinksMapping);
     }
 
 }

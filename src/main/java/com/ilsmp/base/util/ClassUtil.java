@@ -7,13 +7,9 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Enumeration;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.core.type.classreading.AnnotationMetadataReadingVisitor;
 
 /**
 * Author: zhangjiahao04 Title: ClassUtil Package: com.ilsmp.base.util Description: 类工具包 Date: 2022/10/25 15:28
@@ -22,35 +18,6 @@ import org.springframework.core.type.classreading.AnnotationMetadataReadingVisit
 public class ClassUtil {
     private static final String FILE_STR= "file";
     private static final String JAR_STR = "jar";
-
-    /*
-     * Author: zhangjiahao04
-     * Description:  获取包
-     * Date: 2022/10/25 15:55
-     * Param: antCls 注解类
-     * return: 注解标注类包名集合
-     **/
-    public static String[] getPackage(Class antCls) {
-        AnnotationMetadataReadingVisitor readingVisitor =
-                new AnnotationMetadataReadingVisitor(antCls.getClassLoader());
-        // 获取EnableEcho注解的所有属性的value
-        Map<String, Object> attributes = readingVisitor.getAnnotationAttributes(EntityScan.class.getName());
-        if(attributes == null) {
-            return new String[0];
-        }
-        // 获取package属性的value
-        String[] packages = (String[]) attributes.get("packages");
-        if(packages == null || packages.length <= 0 || StringUtil.isEmpty(packages[0])){
-            return new String[0];
-        }
-        Set<String> classNames = new HashSet<>();
-        for(String packageName:packages) {
-            classNames.addAll(ClassUtil.getClassName(packageName,true));
-        }
-        String[] returnClassNames = new String[classNames.size()];
-        returnClassNames= classNames.toArray(returnClassNames);
-        return  returnClassNames;
-    }
 
     /**
      * 获取某包下所有类
