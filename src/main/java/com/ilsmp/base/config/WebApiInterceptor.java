@@ -35,8 +35,6 @@ public class WebApiInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                              @NotNull Object o) throws Exception {
         System.out.println("进入拦截器,请求之前");
-        long start = System.currentTimeMillis();
-
         // 打印参数
         printHeaderAndBody(httpServletRequest, httpServletResponse);
         return true;
