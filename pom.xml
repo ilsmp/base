@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.ilsmp</groupId>
     <artifactId>base-spring-boot-starter</artifactId>
-    <version>1.3.0.2</version>
+    <version>1.3.0.2.2</version>
     <name>base</name>
     <description>配置springBoot的基础配置,与IDEA的Base插件配合使用效果更佳</description>
     <properties>
@@ -45,9 +45,9 @@
         </dependency>
         <!-- mysql 开始-->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.33</version>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.3.0</version>
         </dependency>
         <!-- thymeleaf 开始-->
         <dependency>
