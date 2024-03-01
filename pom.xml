@@ -70,12 +70,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-        <!-- 空间数据 -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-spatial</artifactId>
-            <version>6.4.3.Final</version>
-        </dependency>
         <!-- json-path -->
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
