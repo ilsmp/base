@@ -5,9 +5,9 @@ import java.util.UUID;
 
 import com.ilsmp.base.util.ServletUtil;
 import com.ilsmp.base.util.TimeUtil;
-import com.sun.istack.NotNull;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.web.servlet.HandlerInterceptor;

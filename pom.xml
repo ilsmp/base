@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.ilsmp</groupId>
     <artifactId>base-spring-boot-starter</artifactId>
-    <version>1.3.0.2.4</version>
+    <version>1.3.0.2.6</version>
     <name>base</name>
     <description>配置springBoot的基础配置,与IDEA的Base插件配合使用效果更佳</description>
     <properties>
@@ -20,14 +20,26 @@
         <gpg.executable>gpg2</gpg.executable>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- spring-boot-starter-security -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>3.2.3</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <!--========================================= 基础依赖禁止修改 开始=============================================-->
-        <!-- swagger 开始-->
+        <!-- openapi3 开始-->
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>3.0.0</version>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>4.5.0</version>
         </dependency>
+        <!-- actuator 开始-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -40,18 +52,13 @@
         <!-- druid 开始-->
         <dependency>
             <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
+            <artifactId>druid-spring-boot-3-starter</artifactId>
             <version>1.2.21</version>
         </dependency>
         <!-- mysql 开始-->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
-        </dependency>
-        <!-- thymeleaf 开始-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <!-- validation 开始-->
         <dependency>
@@ -85,28 +92,34 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+        <!-- spring-boot-starter-security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>3.2.3</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <excludes>-->
-<!--                        <exclude>-->
-<!--                            <groupId>org.projectlombok</groupId>-->
-<!--                            <artifactId>lombok</artifactId>-->
-<!--                        </exclude>-->
-<!--                    </excludes>-->
-<!--                    &lt;!&ndash;既是其它模块的依赖，又需要打成可执行的包&ndash;&gt;-->
-<!--                    <classifier>exec</classifier>-->
-<!--                    &lt;!&ndash;JAR/WAR/ZIP/NONE(打包所有依赖项和资源,不绑定任何启动加载器)&ndash;&gt;-->
-<!--                    &lt;!&ndash;<layout>NONE</layout>&ndash;&gt;-->
-<!--                    &lt;!&ndash; 打包包含本地jar&ndash;&gt;-->
-<!--                    <includeSystemScope>true</includeSystemScope>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.springframework.boot</groupId>-->
+            <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+            <!--                <configuration>-->
+            <!--                    <excludes>-->
+            <!--                        <exclude>-->
+            <!--                            <groupId>org.projectlombok</groupId>-->
+            <!--                            <artifactId>lombok</artifactId>-->
+            <!--                        </exclude>-->
+            <!--                    </excludes>-->
+            <!--                    &lt;!&ndash;既是其它模块的依赖，又需要打成可执行的包&ndash;&gt;-->
+            <!--                    <classifier>exec</classifier>-->
+            <!--                    &lt;!&ndash;JAR/WAR/ZIP/NONE(打包所有依赖项和资源,不绑定任何启动加载器)&ndash;&gt;-->
+            <!--                    &lt;!&ndash;<layout>NONE</layout>&ndash;&gt;-->
+            <!--                    &lt;!&ndash; 打包包含本地jar&ndash;&gt;-->
+            <!--                    <includeSystemScope>true</includeSystemScope>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
             <!-- 生成javadoc -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

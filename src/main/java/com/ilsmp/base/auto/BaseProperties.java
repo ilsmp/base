@@ -98,6 +98,7 @@ public class BaseProperties {
      * return:
      **/
     private Boolean apiEnable;
+    private Boolean swagger3Adapter;
 
     /*
      * Author: zhangjiahao04

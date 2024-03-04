@@ -3,7 +3,7 @@ package com.ilsmp.base;
 
 import java.io.Serializable;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -31,7 +31,8 @@ public class BaseEntity implements Serializable {
      */
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @ApiModelProperty(value = "主键id", required = false, allowEmptyValue = true, dataType = "Long", example = "1")
+    @Schema(name = "主键id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+            type = "Long", example = "12345678", defaultValue = "12345678")
     @Column(name = "id", nullable = false, columnDefinition = "bigint COMMENT '主键'")
     protected Long id;
 

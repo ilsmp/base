@@ -4,7 +4,7 @@ package com.ilsmp.base;
 import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -31,26 +31,26 @@ public class BaseEntityVersion extends BaseEntity {
      * 上传版本号 nullable : false default  : null
      */
     @AutoValue
-    @ApiModelProperty(value = "上传版本号,更新数据时必传", required = false, allowEmptyValue = true, dataType = "Long",
-            example = "1586666666000")
+    @Schema(name = "上传版本号,更新数据时必传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+            type = "Long", example = "1586666666000", defaultValue = "1586666666000")
     @Column(name = "update_version", nullable = false, columnDefinition = "bigint default 0 COMMENT '上传版本号'")
     protected Long updateVersion;
 
     /**
      * 是否被删除 nullable : true default  : 0
      */
-    @ApiModelProperty(value = "是否被删除,不传", required = false, allowEmptyValue = true, dataType = "Short", example =
-            "0")
+    @Schema(name = "是否被删除,不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+            type = "Short", example = "0", defaultValue = "0")
     @Column(name = "deleted", nullable = true, columnDefinition = "smallint default 0 COMMENT '是否被删除'")
     @JsonIgnore
-    protected Short deleted = 0;
+    protected Integer deleted = 0;
 
     /**
      * 创建时间 nullable : false default  : null
      */
     @CreatedDate
-    @ApiModelProperty(value = "创建时间，不传", required = false, allowEmptyValue = true, dataType = "java.sql.timestamp",
-            example = "1586666666000")
+    @Schema(name = "创建时间，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+            type = "java.sql.timestamp", example = "1586666666000", defaultValue = "1586666666000")
     @Column(name = "create_timestamp", nullable = false, columnDefinition = "timestamp COMMENT '创建时间'")
     protected Timestamp createTimestamp;
 
@@ -58,18 +58,18 @@ public class BaseEntityVersion extends BaseEntity {
      * 创建用户 nullable : false default  : null
      */
     @CreatedBy
-    @ApiModelProperty(value = "创建用户，不传", required = false, allowEmptyValue = true, dataType = "String", example =
-            "admin")
-    @Column(name = "create_user", nullable = false, columnDefinition = "varchar(25) COMMENT '创建用户'")
+    @Schema(name = "创建用户，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+            type = "Long", example = "123", defaultValue = "123")
+    @Column(name = "create_user", nullable = false, columnDefinition = "bigint default 0 COMMENT '创建用户'")
     @JsonIgnore
-    protected String createUser;
+    protected Long createUser;
 
     /**
      * 最后修改时间 nullable : false default  : null
      */
     @LastModifiedDate
-    @ApiModelProperty(value = "最后修改时间，不传", required = false, allowEmptyValue = true,
-            dataType = "java.sql.timestamp", example = "1586666666000")
+    @Schema(name = "最后修改时间，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+            type = "java.sql.timestamp", example = "1586666666000", defaultValue = "1586666666000")
     @Column(name = "modify_timestamp", nullable = false, columnDefinition = "timestamp COMMENT '最后修改时间'")
     protected Timestamp modifyTimestamp;
 
@@ -77,10 +77,10 @@ public class BaseEntityVersion extends BaseEntity {
      * 最后修改用户 nullable : false default  : null
      */
     @LastModifiedBy
-    @ApiModelProperty(value = "最后修改用户，不传", required = false, allowEmptyValue = true, dataType = "String",
-            example = "admin")
-    @Column(name = "modify_user", nullable = false, columnDefinition = "varchar(25) COMMENT '最后修改用户'")
+    @Schema(name = "最后修改用户，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+            type = "Long", example = "123", defaultValue = "123")
+    @Column(name = "modify_user", nullable = false, columnDefinition = "bigint default 0 COMMENT '最后修改用户'")
     @JsonIgnore
-    protected String modifyUser;
+    protected Long modifyUser;
 
 }

@@ -22,8 +22,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -40,29 +39,25 @@ import org.springframework.util.StringUtils;
 public class FileUtil {
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @ApiModel(value = "文件上传子文件")
+    @Schema(name = "文件上传子文件")
     public static class SubFile {
 
-        @ApiModelProperty(value = "子文件的EDB命名规则下的名称", required = true, allowEmptyValue = false, dataType = "String",
-                example =
-                        "99900000000_YCDNAUDIT_0000_20211001_I_1312_0008.txt")
+        @Schema(description = "子文件的EDB命名规则下的名称", requiredMode = Schema.RequiredMode.REQUIRED, nullable = false,
+                type = "String", example = "20211001_I_1312_0008.txt",defaultValue = "20211001_I_1312_0008.txt")
         private String subFileName;
 
-        @ApiModelProperty(value = "子文件的大小字节树", required = true, allowEmptyValue = false, dataType = "int",
-                example =
-                        "123456")
+        @Schema(description = "子文件的大小字节树", requiredMode = Schema.RequiredMode.REQUIRED, nullable = false,
+                type = "int", example = "123456",defaultValue = "123456")
         private Integer subFileSize;
 
-        @ApiModelProperty(value = "子文件的生成时间", required = true, allowEmptyValue = false, dataType = "Date",
-                example =
-                        "2021-10-01 10:10:10")
+        @Schema(description = "子文件的生成时间", requiredMode = Schema.RequiredMode.REQUIRED, nullable = false,
+                type = "Date", example = "2021-10-01 10:10:10",defaultValue = "2021-10-01 10:10:10")
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
         @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         private Date subFileCreateTime;
 
-        @ApiModelProperty(value = "子文件的发送时间", required = true, allowEmptyValue = false, dataType = "Date",
-                example =
-                        "2021-10-01 10:10:10")
+        @Schema(description = "子文件的发送时间", requiredMode = Schema.RequiredMode.REQUIRED, nullable = false,
+                type = "Date", example = "2021-10-01 10:10:10",defaultValue = "2021-10-01 10:10:10")
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
         @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         private Date subFileSendTime;

@@ -79,6 +79,13 @@
     },
     {
       "sourceType": "com.ilsmp.base.auto.BaseProperties",
+      "name": "spring.base.swagger3-adapter",
+      "type": "java.lang.Boolean",
+      "description": "是否允许打开在线接口文档",
+      "defaultValue": false
+    },
+    {
+      "sourceType": "com.ilsmp.base.auto.BaseProperties",
       "name": "spring.base.multi-db",
       "type": "java.lang.Boolean",
       "description": "是否允许多数据库配置",

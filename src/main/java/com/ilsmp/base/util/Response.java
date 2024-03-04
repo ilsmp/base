@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
@@ -14,15 +14,14 @@ import org.springframework.lang.Nullable;
  * Author: ZJH Title: Amend Package com.zhihui.gongdi.controller Description: 整改记录表 Date 2019/10/8 16:08
  */
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
+@Schema(title = "response", description = "响应类")
 public class Response<T> implements Serializable {
     /**
      * serialVersionUID
      */
     private static final long serialVersionUID = 1L;
 
-    @JsonProperty(value = "respCode")
     private int code;
-    @JsonProperty(value = "respInfo")
     private String message;
     private T result;
 

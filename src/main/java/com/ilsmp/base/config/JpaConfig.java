@@ -10,8 +10,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 
-import static springfox.documentation.schema.AlternateTypeRules.newRule;
-import com.fasterxml.classmate.TypeResolver;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -32,9 +30,8 @@ import com.fasterxml.jackson.databind.module.SimpleSerializers;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.ilsmp.base.util.JsonUtil;
 import com.ilsmp.base.util.ServletUtil;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import lombok.SneakyThrows;
@@ -45,7 +42,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.core.convert.support.DefaultConversionService;
@@ -56,8 +52,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import springfox.documentation.schema.AlternateTypeRule;
-import springfox.documentation.schema.AlternateTypeRuleConvention;
 
 /**
  * @author: ZJH Title: UserAuditor Package com.zhihui.gongdi.config Description: 启动类上增加注释：@EnableJpaAuditing JPA Audit说明
@@ -96,25 +90,10 @@ public class JpaConfig implements AuditorAware<Object> {
         GenericConversionService genericConversionService = ((GenericConversionService) DefaultConversionService.getSharedInstance());
         genericConversionService.addConverter(new JpaConvert());
     }
-
     /**
      * @author: ZJH Title: PageableParamConfig Package com.***.config Description: JPA+Swagger分页时显示pageable的参数,
      * 使用时需打开webConfig中相应配置且导入import org.springframework.data.domain.Pageable;的Pageable Date 2020/4/3 11:41
      */
-    @Bean
-    public AlternateTypeRuleConvention pageableConvention(final TypeResolver resolver) {
-        return new AlternateTypeRuleConvention() {
-            @Override
-            public int getOrder() {
-                return Ordered.LOWEST_PRECEDENCE;
-            }
-
-            @Override
-            public List<AlternateTypeRule> rules() {
-                return Collections.singletonList(newRule(resolver.resolve(Pageable.class), resolver.resolve(Page.class)));
-            }
-        };
-    }
 
     static class JpaConvert implements GenericConverter {
         @Override
@@ -124,28 +103,27 @@ public class JpaConfig implements AuditorAware<Object> {
 
         @SneakyThrows
         @Override
-        public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
+        public Object convert(Object source, @SuppressWarnings("NullableProblems") TypeDescriptor sourceType, TypeDescriptor targetType) {
             return JsonUtil.convert_value(source, targetType.getType());
         }
     }
 
-    @ApiModel("分页")
+    @Schema(title = "分页", description = "分页参数说明")
     @Data
     static class Page {
-        @ApiModelProperty(value = "第几页，从0开始，默认为第0页", example = "0", dataType = "bigint", allowEmptyValue = true,
-                required = false)
-        @ApiParam(value = "第几页，从0开始，默认为第0页", defaultValue = "0", allowEmptyValue = true, required = false)
+        @Schema(description = "上传版本号,更新数据时必传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+                type = "int", example = "0", defaultValue = "0")
+        @Parameter(description = "第几页，从0开始，默认为第0页", example = "0", allowEmptyValue = true, required = false)
         private Integer page;
 
-        @ApiModelProperty(value = "每一页的大小，默认为10", example = "10", dataType = "bigint", allowEmptyValue = true,
-                required = false)
-        @ApiParam(value = "每一页的大小，默认为10", defaultValue = "10", allowEmptyValue = true, required = false)
+        @Schema(description = "每一页的大小，默认为10", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+                type = "int", example = "0", defaultValue = "0")
+        @Parameter(description = "每一页的大小，默认为10", example = "10", allowEmptyValue = true, required = false)
         private Integer size;
 
-        @ApiModelProperty(value = "按属性排序,按括号内格式填写:(属性,asc|desc)", example = "[\"id,desc\"]",
-                dataType = "List", allowEmptyValue = true, required = false)
-        @ApiParam(value = "按属性排序，括号内格式填写:(属性,asc|desc)大写排序字段用双引号括起该字段",
-                allowEmptyValue = true, required = false)
+        @Schema(description = "按属性排序,按括号内格式填写:(属性,asc|desc)", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+                type = "List", example = "[\"id,desc\"]", defaultValue = "[\"id,desc\"]")
+        @Parameter(description = "每一页的大小，默认为10", example = "0", allowEmptyValue = true, required = false)
         private List<String> sort;
     }
 
