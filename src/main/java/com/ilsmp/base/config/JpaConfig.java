@@ -90,10 +90,6 @@ public class JpaConfig implements AuditorAware<Object> {
         GenericConversionService genericConversionService = ((GenericConversionService) DefaultConversionService.getSharedInstance());
         genericConversionService.addConverter(new JpaConvert());
     }
-    /**
-     * @author: ZJH Title: PageableParamConfig Package com.***.config Description: JPA+Swagger分页时显示pageable的参数,
-     * 使用时需打开webConfig中相应配置且导入import org.springframework.data.domain.Pageable;的Pageable Date 2020/4/3 11:41
-     */
 
     static class JpaConvert implements GenericConverter {
         @Override
@@ -163,12 +159,10 @@ public class JpaConfig implements AuditorAware<Object> {
                     } else {
                         pageRequest = PageRequest.of(number, size);
                     }
-
-                    this.delegate = new PageImpl(content, pageRequest, totalElements);
+                    this.delegate = new PageImpl<>(content, pageRequest, totalElements);
                 } else {
-                    this.delegate = new PageImpl(content);
+                    this.delegate = new PageImpl<>(content);
                 }
-
             }
 
             @JsonProperty
