@@ -1,5 +1,4 @@
 com.ilsmp.base.auto.BaseAutoConfig
-com.ilsmp.base.config.SwaggerConfig
 com.ilsmp.base.config.JpaConfig
 com.ilsmp.base.config.WebConfig
 com.ilsmp.base.config.MyExceptionHandler
