@@ -31,7 +31,7 @@ public class BaseEntityVersion extends BaseEntity {
      * 上传版本号 nullable : false default  : null
      */
     @AutoValue
-    @Schema(name = "上传版本号,更新数据时必传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+    @Schema(description = "上传版本号,更新数据时必传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "Long", example = "1586666666000", defaultValue = "1586666666000")
     @Column(name = "update_version", nullable = false, columnDefinition = "bigint default 0 COMMENT '上传版本号'")
     protected Long updateVersion;
@@ -39,7 +39,7 @@ public class BaseEntityVersion extends BaseEntity {
     /**
      * 是否被删除 nullable : true default  : 0
      */
-    @Schema(name = "是否被删除,不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+    @Schema(description = "是否被删除,不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "Short", example = "0", defaultValue = "0")
     @Column(name = "deleted", nullable = true, columnDefinition = "smallint default 0 COMMENT '是否被删除'")
     @JsonIgnore
@@ -49,7 +49,7 @@ public class BaseEntityVersion extends BaseEntity {
      * 创建时间 nullable : false default  : null
      */
     @CreatedDate
-    @Schema(name = "创建时间，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+    @Schema(description = "创建时间，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "java.sql.timestamp", example = "1586666666000", defaultValue = "1586666666000")
     @Column(name = "create_timestamp", nullable = false, columnDefinition = "timestamp COMMENT '创建时间'")
     protected Timestamp createTimestamp;
@@ -58,7 +58,7 @@ public class BaseEntityVersion extends BaseEntity {
      * 创建用户 nullable : false default  : null
      */
     @CreatedBy
-    @Schema(name = "创建用户，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+    @Schema(description = "创建用户，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "Long", example = "123", defaultValue = "123")
     @Column(name = "create_user", nullable = false, columnDefinition = "bigint default 0 COMMENT '创建用户'")
     @JsonIgnore
@@ -68,7 +68,7 @@ public class BaseEntityVersion extends BaseEntity {
      * 最后修改时间 nullable : false default  : null
      */
     @LastModifiedDate
-    @Schema(name = "最后修改时间，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+    @Schema(description = "最后修改时间，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "java.sql.timestamp", example = "1586666666000", defaultValue = "1586666666000")
     @Column(name = "modify_timestamp", nullable = false, columnDefinition = "timestamp COMMENT '最后修改时间'")
     protected Timestamp modifyTimestamp;
@@ -77,7 +77,7 @@ public class BaseEntityVersion extends BaseEntity {
      * 最后修改用户 nullable : false default  : null
      */
     @LastModifiedBy
-    @Schema(name = "最后修改用户，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+    @Schema(description = "最后修改用户，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "Long", example = "123", defaultValue = "123")
     @Column(name = "modify_user", nullable = false, columnDefinition = "bigint default 0 COMMENT '最后修改用户'")
     @JsonIgnore

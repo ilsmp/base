@@ -29,7 +29,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Slf4j
 public class AutoValueHandler {
 
-    private static volatile ThreadLocal<Integer> tryNum = new ThreadLocal<>();
+    private static volatile ThreadLocal<Integer> tryNum = ThreadLocal.withInitial(() -> 0);
 
     @Value("${spring.base.user-id:user-id}")
     private String userId;
@@ -82,7 +82,7 @@ public class AutoValueHandler {
                 return null;
             } else {
                 tryNum.set(tryNum.get()+1);
-                log.error("自定义AOP重试{}次异常：{}", tryNum, throwable);
+                log.error("自定义AOP重试{}次异常：{}", tryNum.get(), throwable);
                 obj = activeAutoValue(joinPoint, list, isSave);
             }
         }

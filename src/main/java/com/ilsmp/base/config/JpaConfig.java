@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.module.SimpleSerializers;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.ilsmp.base.util.JsonUtil;
 import com.ilsmp.base.util.ServletUtil;
+import com.ilsmp.base.util.StringUtil;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.annotation.PostConstruct;
@@ -62,7 +63,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 @EntityScan(basePackages = {"${spring.base.entity-scan:com.*.*}"})
 @SuppressWarnings("SpringJavaAutowiringInspection")
-public class JpaConfig implements AuditorAware<Object> {
+public class JpaConfig implements AuditorAware<Long> {
 
     @Value("${spring.base.user-id:user-id}")
     private String userId;
@@ -74,8 +75,12 @@ public class JpaConfig implements AuditorAware<Object> {
      */
     @SneakyThrows
     @Override
-    public Optional<Object> getCurrentAuditor() {
-        return Optional.of(ServletUtil.getRequestObject(userId));
+    public Optional<Long> getCurrentAuditor() {
+        if (StringUtil.isEmpty(ServletUtil.getRequestObject(userId))) {
+            return Optional.of(0L);
+        } else {
+            return Optional.ofNullable((Long) ServletUtil.getRequestObject(userId));
+        }
     }
 
     /*

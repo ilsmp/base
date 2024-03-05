@@ -3,7 +3,7 @@ com.ilsmp.base.config.JpaConfig
 com.ilsmp.base.config.WebConfig
 com.ilsmp.base.config.MyExceptionHandler
 com.ilsmp.base.config.SimpleCORSFilter
-com.ilsmp.base.config.PageIgnoreOperation
-com.ilsmp.base.config.SecurityOperation
+#com.ilsmp.base.config.PageIgnoreOperation
+#com.ilsmp.base.config.SecurityOperation
 com.ilsmp.base.database.DynamicConfig
 com.ilsmp.base.database.DataSourceAspect

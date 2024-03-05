@@ -31,7 +31,7 @@ public class BaseEntity implements Serializable {
      */
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Schema(name = "主键id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+    @Schema(description = "主键id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "Long", example = "12345678", defaultValue = "12345678")
     @Column(name = "id", nullable = false, columnDefinition = "bigint COMMENT '主键'")
     protected Long id;
