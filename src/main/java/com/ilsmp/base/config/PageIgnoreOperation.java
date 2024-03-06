@@ -1,12 +1,8 @@
 package com.ilsmp.base.config;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.github.xiaoymin.knife4j.spring.extension.Knife4jJakartaOperationCustomizer;
 import io.swagger.v3.oas.models.Operation;
+import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
@@ -16,25 +12,20 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 
 /**
- * Description: 忽略参数 Package: com.ilsmp.base.config Author: zhangjiahao04 Title: PageIgnoreOperation Date:
- * 2024/3/3 19:27
+ * Description: 忽略参数 Package: com.ilsmp.base.config Author: zhangjiahao04 Title: PageIgnoreOperation Date: 2024/3/3
+ * 19:27
  */
 
 @Component
 public class PageIgnoreOperation extends Knife4jJakartaOperationCustomizer {
 
-    public static final String IGNORE_PARAMETER_EXTENSION_NAME = "x-ignoreParameters";
-
-    private static final String[] IGNORE = new String[]{"numberOfElements", "pageable", "empty", "totalPages"};
-
     @Override
     public Operation customize(Operation operation, HandlerMethod handlerMethod) {
+        super.customize(operation, handlerMethod);
         setGlobalResponse(operation);
         if (hasPage(handlerMethod)) {
-//            addExtensionParameters(IGNORE, operation);
-//            addExtensionParameters(IGNORE, IGNORE_PARAMETER_EXTENSION_NAME, operation);
+            addExtensionParameters(operation, handlerMethod);
         }
-        super.customize(operation, handlerMethod);
         return operation;
     }
 
@@ -74,32 +65,43 @@ public class PageIgnoreOperation extends Knife4jJakartaOperationCustomizer {
         responses.addApiResponse("500", res500);
     }
 
-    @SuppressWarnings("SameParameterValue")
-    private void addExtensionParameters(String[] params, String extensionName, Operation operation) {
-        if (params != null && params.length > 0) {
-            Map<String, Boolean> map = new HashMap<>(8);
-            for (String ignore : params) {
-                if (ignore != null && !"".equals(ignore) && !"null".equals(ignore)) {
-                    map.put(ignore, true);
+    private void addExtensionParameters(Operation operation, HandlerMethod handlerMethod) {
+        if (operation.getParameters() != null) {
+            operation.getParameters().removeIf(parameter -> parameter.getName().startsWith("page"));
+        } else {
+            Content content = operation.getRequestBody().getContent();
+            String ref = content.get("application/json").getSchema().get$ref();
+            if (ref != null)  {
+                if (ref.endsWith("Pageable")) {
+                    content.remove("application/json");
                 }
             }
-            operation.addExtension(extensionName, map);
         }
+        Parameter para1 = new Parameter();
+        para1.setStyle(Parameter.StyleEnum.FORM);
+        para1.setDescription("第几页，从0开始，默认为第0页");
+        para1.setName("page");
+        para1.setExample(0);
+        Parameter para2 = new Parameter();
+        para2.setStyle(Parameter.StyleEnum.FORM);
+        para2.setDescription("每一页的大小，默认为10");
+        para2.setName("size");
+        para2.setExample(10);
+        Parameter para3 = new Parameter();
+        para3.setStyle(Parameter.StyleEnum.FORM);
+        para3.setDescription("按属性排序,按括号内格式填写:(属性,asc|desc)");
+        para3.setName("sort");
+        para3.setExample("id,desc");
+        operation.addParametersItem(para1);
+        operation.addParametersItem(para2);
+        operation.addParametersItem(para3);
+
     }
 
-    private void addExtensionParameters(String[] params, Operation operation) {
-        if (params != null && params.length > 0) {
-            List<Parameter> parameters = new ArrayList<>();
-            Map<String, Boolean> map = new HashMap<>(8);
-            for (String ignore : params) {
-                if (ignore != null && !ignore.isEmpty() && !"null".equals(ignore)) {
-                    Parameter para = new Parameter();
-                    para.setDeprecated(true);
-                    para.setName(ignore);
-                    parameters.add(para);
-                }
-            }
-            operation.parameters(parameters);
-        }
-    }
+//    @Bean
+//    public GlobalOpenApiCustomizer orderGlobalOpenApiCustomizer() {
+//        return openApi -> {
+//            openApi.addSecurityItem(new SecurityRequirement().addList(HttpHeaders.AUTHORIZATION)).components(openApi.getComponents().addSecuritySchemes(HttpHeaders.AUTHORIZATION, new SecurityScheme().type(SecurityScheme.Type.OAUTH2).name(HttpHeaders.AUTHORIZATION).in(SecurityScheme.In.HEADER).flows(new OAuthFlows().password(new OAuthFlow().tokenUrl("http://localhost:8082/user/info")))));
+//        };
+//    }
 }
