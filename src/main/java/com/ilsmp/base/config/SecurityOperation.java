@@ -50,7 +50,7 @@ public class SecurityOperation implements GlobalOperationCustomizer {
             values.add(preFilter.value());
         }
         if (!values.isEmpty()) {
-            notesBuilder.append("<p />").append("class: ").append(String.join("，", values));
+            notesBuilder.append("<p />").append("class权限: ").append(String.join("，", values));
         }
     }
 
@@ -73,7 +73,7 @@ public class SecurityOperation implements GlobalOperationCustomizer {
             values.add(preFilter.value());
         }
         if (!values.isEmpty()) {
-            notesBuilder.append("<p />").append("method: ").append(String.join("，", values));
+            notesBuilder.append("<p />").append("method权限: ").append(String.join("，", values));
         }
     }
 }
