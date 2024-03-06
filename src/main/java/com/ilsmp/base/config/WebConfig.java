@@ -30,6 +30,7 @@ import org.springframework.http.converter.xml.SourceHttpMessageConverter;
 import org.springframework.lang.Nullable;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -127,6 +128,10 @@ public class WebConfig extends SwaggerWebMvcConfigurer implements ApplicationCon
      * 重写configureMessageConverters 方法，可以将JSON引擎替换为fastJSON。
      */
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(new ByteArrayHttpMessageConverter());
+        converters.add(new StringHttpMessageConverter());
+        converters.add(new ResourceHttpMessageConverter());
+        converters.add(new ResourceRegionHttpMessageConverter());
         converters.forEach(con -> {
             if (con instanceof ByteArrayHttpMessageConverter) {
                 ((ByteArrayHttpMessageConverter) con).setDefaultCharset(StandardCharsets.UTF_8);
@@ -152,6 +157,11 @@ public class WebConfig extends SwaggerWebMvcConfigurer implements ApplicationCon
                 jackson.setDefaultCharset(StandardCharsets.UTF_8);
             }
         });
+    }
+
+    @Override
+    public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
+
     }
 
     @Nullable
