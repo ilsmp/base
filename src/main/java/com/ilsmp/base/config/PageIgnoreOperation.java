@@ -1,6 +1,7 @@
 package com.ilsmp.base.config;
 
 import com.github.xiaoymin.knife4j.spring.extension.Knife4jJakartaOperationCustomizer;
+import com.ilsmp.base.util.StringUtil;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.parameters.Parameter;
@@ -74,6 +75,11 @@ public class PageIgnoreOperation extends Knife4jJakartaOperationCustomizer {
             if (ref != null)  {
                 if (ref.endsWith("Pageable")) {
                     content.remove("application/json");
+                }
+            } else {
+                var properties = content.get("application/json").getSchema().getProperties();
+                if (!StringUtil.isEmpty(properties)) {
+                    properties.remove("pageable");
                 }
             }
         }
