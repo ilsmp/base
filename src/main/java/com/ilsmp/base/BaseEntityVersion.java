@@ -43,7 +43,7 @@ public class BaseEntityVersion extends BaseEntity {
             type = "Short", format = "short", example = "0", defaultValue = "0")
     @Column(name = "deleted", nullable = true, columnDefinition = "smallint default 0 COMMENT '是否被删除'")
     @JsonIgnore
-    protected Integer deleted = 0;
+    protected Integer deleted;
 
     /**
      * 创建时间 nullable : false default  : null
