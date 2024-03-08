@@ -92,6 +92,7 @@ public class JpaConfig implements AuditorAware<Long> {
      **/
     @PostConstruct
     public void init() {
+//        SpringDocUtils.getConfig().replaceParameterObjectWithClass(Pageable.class, Page.class);
         GenericConversionService genericConversionService = ((GenericConversionService) DefaultConversionService.getSharedInstance());
         genericConversionService.addConverter(new JpaConvert());
     }
@@ -112,7 +113,7 @@ public class JpaConfig implements AuditorAware<Long> {
     @Schema(title = "分页", description = "分页参数说明")
     @Data
     static class Page {
-        @Schema(description = "上传版本号,更新数据时必传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
+        @Schema(description = "第几页，从0开始，默认为第0页", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
                 type = "int", example = "0", defaultValue = "0")
         @Parameter(description = "第几页，从0开始，默认为第0页", example = "0", allowEmptyValue = true, required = false)
         private Integer page;
@@ -156,7 +157,10 @@ public class JpaConfig implements AuditorAware<Long> {
         static class SimplePageImpl<T> implements org.springframework.data.domain.Page<T> {
             private final org.springframework.data.domain.Page<T> delegate;
 
-            SimplePageImpl(@JsonProperty("content") List<T> content, @JsonProperty("number") int number, @JsonProperty("size") int size, @JsonProperty("totalElements") @JsonAlias({"total-elements", "total_elements", "totalelements", "TotalElements"}) long totalElements, @JsonProperty("sort") Sort sort) {
+            SimplePageImpl(@JsonProperty("content") @JsonAlias({"records"}) List<T> content, @JsonProperty("number")
+            @JsonAlias({"page", "current"})int number, @JsonProperty("size") int size, @JsonProperty("totalElements")
+                           @JsonAlias({"total-elements", "total_elements", "total", "totalelements", "TotalElements"}) long
+                                   totalElements, @JsonProperty("sort") @JsonAlias({"orders"}) Sort sort) {
                 if (size > 0) {
                     PageRequest pageRequest;
                     if (sort != null) {
@@ -350,5 +354,4 @@ public class JpaConfig implements AuditorAware<Long> {
             return new SortJacksonModule();
         }
     }
-
 }
