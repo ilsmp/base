@@ -3,11 +3,15 @@ package com.ilsmp.base.util;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
@@ -17,7 +21,12 @@ import org.springframework.lang.Nullable;
  */
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Schema(title = "response", description = "响应类")
+@EqualsAndHashCode
+@ToString
+@Setter
+@Getter
+@Schema(name = "response请求响应结构类",title = "请求响应结构类", description = "请求响应结构类")
+@Tag(name = "response请求响应结构类", description = "请求响应结构类")
 public class Response<T> implements Serializable {
     /**
      * serialVersionUID
@@ -44,58 +53,6 @@ public class Response<T> implements Serializable {
         this.code = code;
         this.message = message;
         this.result = result;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public T getResult() {
-        return result;
-    }
-
-    public void setResult(T result) {
-        this.result = result;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(code, message, result);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Response)) {
-            return false;
-        }
-        Response<?> that = (Response<?>) o;
-        return Objects.equals(code, that.code) &&
-                Objects.equals(message, that.message) &&
-                Objects.equals(result, that.result);
-    }
-
-    @Override
-    public String toString() {
-        return "Response{" +
-                "code='" + code + '\'' +
-                ", reason='" + message + '\'' +
-                ", result=" + result +
-                '}';
     }
 
     public static <T> ResponseEntity<Response<T>> withBody(final T body) {
