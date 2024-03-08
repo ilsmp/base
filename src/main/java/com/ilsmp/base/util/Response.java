@@ -1,9 +1,11 @@
 package com.ilsmp.base.util;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.http.HttpStatus;
@@ -14,15 +16,25 @@ import org.springframework.lang.Nullable;
  * Author: ZJH Title: Amend Package com.zhihui.gongdi.controller Description: 整改记录表 Date 2019/10/8 16:08
  */
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(title = "response", description = "响应类")
 public class Response<T> implements Serializable {
     /**
      * serialVersionUID
      */
+    @Serial
     private static final long serialVersionUID = 1L;
 
+    @Schema(description = "响应状态码", requiredMode = Schema.RequiredMode.REQUIRED, nullable = false,
+            type = "Integer", format = "int", example = "0", defaultValue = "0")
     private int code;
+    @Schema(description = "响应状态说明",
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true, type = "string", format = "varchar(1000)",
+            example = "123", defaultValue = "123")
     private String message;
+    @Schema(description = "响应数据",
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true, type = "T", format = "t",
+            example = "123", defaultValue = "123")
     private T result;
 
     public Response() {
@@ -140,4 +152,3 @@ public class Response<T> implements Serializable {
     }
 
 }
-
