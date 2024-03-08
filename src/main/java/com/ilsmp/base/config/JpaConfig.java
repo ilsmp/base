@@ -37,6 +37,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.utils.SpringDocUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -92,7 +93,7 @@ public class JpaConfig implements AuditorAware<Long> {
      **/
     @PostConstruct
     public void init() {
-//        SpringDocUtils.getConfig().replaceParameterObjectWithClass(Pageable.class, Page.class);
+        SpringDocUtils.getConfig().replaceParameterObjectWithClass(Pageable.class, Page.class);
         GenericConversionService genericConversionService = ((GenericConversionService) DefaultConversionService.getSharedInstance());
         genericConversionService.addConverter(new JpaConvert());
     }
