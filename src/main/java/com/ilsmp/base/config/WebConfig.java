@@ -128,8 +128,8 @@ public class WebConfig extends SwaggerWebMvcConfigurer implements ApplicationCon
      * 重写configureMessageConverters 方法，可以将JSON引擎替换为fastJSON。
      */
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8));
         converters.add(new ByteArrayHttpMessageConverter());
-        converters.add(new StringHttpMessageConverter());
         converters.add(new ResourceHttpMessageConverter());
         converters.add(new ResourceRegionHttpMessageConverter());
         converters.forEach(con -> {
@@ -150,9 +150,11 @@ public class WebConfig extends SwaggerWebMvcConfigurer implements ApplicationCon
             } else if (con instanceof MappingJackson2HttpMessageConverter jackson) {
                 // 替换json消息转换器
                 jackson.setObjectMapper(JsonUtil.getInstance());
-                // 新增text_plain类型,避免遇到响应体是json,而响应头是text/plain类型无法找到适合的解析
+                // 新增text_plain类型,避免遇到响应体是json,而响应头是text/plain等类型无法找到适合的解析
                 List<MediaType> mediaTypes = new ArrayList<>(jackson.getSupportedMediaTypes());
                 mediaTypes.add(MediaType.TEXT_PLAIN);
+                mediaTypes.add(MediaType.APPLICATION_FORM_URLENCODED);
+                mediaTypes.add(MediaType.APPLICATION_ATOM_XML);
                 jackson.setSupportedMediaTypes(mediaTypes);
                 jackson.setDefaultCharset(StandardCharsets.UTF_8);
             }

@@ -1,9 +1,7 @@
 package com.ilsmp.base.util;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import jakarta.servlet.ReadListener;
 import jakarta.servlet.ServletInputStream;
@@ -51,10 +49,5 @@ public class RequestWrapper extends ContentCachingRequestWrapper {
             public void setReadListener(ReadListener readListener) {
             }
         };
-    }
-
-    @Override
-    public BufferedReader getReader() throws IOException {
-        return new BufferedReader(new InputStreamReader(getInputStream(), getCharacterEncoding()));
     }
 }
