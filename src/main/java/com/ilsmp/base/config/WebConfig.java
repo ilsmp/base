@@ -30,7 +30,6 @@ import org.springframework.http.converter.xml.SourceHttpMessageConverter;
 import org.springframework.lang.Nullable;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -60,7 +59,6 @@ public class WebConfig extends SwaggerWebMvcConfigurer implements ApplicationCon
     public WebConfig(SwaggerUiConfigParameters swaggerUiConfigParameters, SwaggerIndexTransformer swaggerIndexTransformer, Optional<ActuatorProvider> actuatorProvider, SwaggerResourceResolver swaggerResourceResolver) {
         super(swaggerUiConfigParameters, swaggerIndexTransformer, actuatorProvider, swaggerResourceResolver);
     }
-
 
     /*
      * 请求拦截器WebApiInterceptor
@@ -159,11 +157,6 @@ public class WebConfig extends SwaggerWebMvcConfigurer implements ApplicationCon
                 jackson.setDefaultCharset(StandardCharsets.UTF_8);
             }
         });
-    }
-
-    @Override
-    public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
-
     }
 
     @Nullable
