@@ -63,27 +63,27 @@
       "description": "跨域白名单,多个用逗号隔开",
       "defaultValue": "*"
     },
-    {
-      "sourceType": "com.ilsmp.base.auto.BaseProperties",
-      "name": "spring.base.api-doc",
-      "type": "java.lang.Boolean",
-      "description": "是否允许生成线下接口文档",
-      "defaultValue": true
-    },
-    {
-      "sourceType": "com.ilsmp.base.auto.BaseProperties",
-      "name": "spring.base.api-enable",
-      "type": "java.lang.Boolean",
-      "description": "是否允许打开在线接口文档",
-      "defaultValue": true
-    },
-    {
-      "sourceType": "com.ilsmp.base.auto.BaseProperties",
-      "name": "spring.base.swagger3-adapter",
-      "type": "java.lang.Boolean",
-      "description": "是否允许打开在线接口文档",
-      "defaultValue": false
-    },
+//    {
+//      "sourceType": "com.ilsmp.base.auto.BaseProperties",
+//      "name": "spring.base.api-doc",
+//      "type": "java.lang.Boolean",
+//      "description": "是否允许生成线下接口文档",
+//      "defaultValue": true
+//    },
+//    {
+//      "sourceType": "com.ilsmp.base.auto.BaseProperties",
+//      "name": "spring.base.api-enable",
+//      "type": "java.lang.Boolean",
+//      "description": "是否允许打开在线接口文档",
+//      "defaultValue": true
+//    },
+//    {
+//      "sourceType": "com.ilsmp.base.auto.BaseProperties",
+//      "name": "spring.base.swagger3-adapter",
+//      "type": "java.lang.Boolean",
+//      "description": "是否允许打开在线接口文档",
+//      "defaultValue": false
+//    },
     {
       "sourceType": "com.ilsmp.base.auto.BaseProperties",
       "name": "spring.base.multi-db",

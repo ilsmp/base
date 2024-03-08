@@ -97,8 +97,8 @@ public class BaseProperties {
      * Param:
      * return:
      **/
-    private Boolean apiEnable;
-    private Boolean swagger3Adapter;
+//    private Boolean apiEnable;
+//    private Boolean swagger3Adapter;
 
     /*
      * Author: zhangjiahao04
@@ -107,7 +107,7 @@ public class BaseProperties {
      * Param:
      * return:
      **/
-    private Boolean apiDoc;
+//    private Boolean apiDoc;
 
     /*
      * Author: zhangjiahao04
