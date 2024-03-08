@@ -26,7 +26,7 @@ public class RequestWrapper extends ContentCachingRequestWrapper {
     @Override
     public ServletInputStream getInputStream() throws IOException {
         if (body == null || body.length == 0) {
-            return super.getInputStream();
+            body = new byte[]{123, 125};
         }
         final ByteArrayInputStream stream = new ByteArrayInputStream(body);
         return new ServletInputStream() {
