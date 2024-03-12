@@ -10,6 +10,8 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -49,6 +51,7 @@ public class BaseEntityVersion extends BaseEntity {
      * 创建时间 nullable : false default  : null
      */
     @CreatedDate
+    @CreationTimestamp
     @Schema(description = "创建时间，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "java.sql.timestamp", example = "1586666666000", defaultValue = "1586666666000")
     @Column(name = "create_timestamp", nullable = false, columnDefinition = "timestamp COMMENT '创建时间'")
@@ -68,6 +71,7 @@ public class BaseEntityVersion extends BaseEntity {
      * 最后修改时间 nullable : false default  : null
      */
     @LastModifiedDate
+    @UpdateTimestamp
     @Schema(description = "最后修改时间，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "java.sql.timestamp", example = "1586666666000", defaultValue = "1586666666000")
     @Column(name = "modify_timestamp", nullable = false, columnDefinition = "timestamp COMMENT '最后修改时间'")

@@ -4,7 +4,9 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
+import cn.hutool.core.util.ReflectUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ilsmp.base.util.EncryptUtil;
 import com.ilsmp.base.util.JsonUtil;
@@ -58,6 +60,31 @@ public class AutoValueHandler {
             log.error("入库save拦截参数", e);
         }
         return activeAutoValue(joinPoint, list, true);
+    }
+
+    private void acquireList(List<?> list) {
+        list.forEach(object -> {
+
+        });
+    }
+
+    private void acquireModel(Object object) {
+        // 获取 BaseEntityVersion属性
+        Object[] fieldsValue = ReflectUtil.getFieldsValue(object, field -> ReflectUtil.getFieldValue(object, field) instanceof BaseEntityVersion);
+
+        // 获取 List属性
+        Object[] list = ReflectUtil.getFieldsValue(object, field -> ReflectUtil.getFieldValue(object, field) instanceof List<?>);
+        List<Object> listFields = Arrays.asList(list);
+
+        // 获取 map类型属性
+        Object[] map = ReflectUtil.getFieldsValue(object,
+                field -> ReflectUtil.getFieldValue(object, field) instanceof Map<?, ?>);
+        List<Object> mapFields = Arrays.asList(map);
+
+        if (listFields.isEmpty()) {
+
+        }
+
     }
 
     private Object activeAutoValue(ProceedingJoinPoint joinPoint, List<Object> list, Boolean isSave) {
