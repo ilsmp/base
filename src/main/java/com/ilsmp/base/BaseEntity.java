@@ -1,6 +1,7 @@
 package com.ilsmp.base;
 
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -24,6 +25,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Getter
 public class BaseEntity implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
     /**
      * 主键 nullable : false default : mysql/sqlserver:strategy = GenerationType.IDENTITY;oracle用序列

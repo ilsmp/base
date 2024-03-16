@@ -575,11 +575,11 @@ public class StringUtil {
     public static Boolean isEmpty(Object object) {
         if (object != null) {
             if (object instanceof Map) {
-                return ((Map) object).isEmpty();
+                return ((Map<?, ?>) object).isEmpty();
             } else if (object instanceof List) {
-                return ((List) object).isEmpty();
+                return ((List<?>) object).isEmpty();
             } else if (object instanceof String) {
-                return ((String) object).trim().length() == 0;
+                return ((String) object).trim().isEmpty();
             } else {
                 return false;
             }

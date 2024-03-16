@@ -10,8 +10,6 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -50,7 +48,6 @@ public class BaseEntityVersion extends BaseEntity {
     /**
      * 创建时间 nullable : false default  : null
      */
-    @Generated(GenerationTime.INSERT)
     @CreatedDate
     @Schema(description = "创建时间，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "java.sql.timestamp", example = "1586666666000", defaultValue = "1586666666000")
@@ -71,7 +68,6 @@ public class BaseEntityVersion extends BaseEntity {
     /**
      * 最后修改时间 nullable : false default  : null
      */
-    @Generated(GenerationTime.ALWAYS)
     @LastModifiedDate
     @Schema(description = "最后修改时间，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "java.sql.timestamp", example = "1586666666000", defaultValue = "1586666666000")

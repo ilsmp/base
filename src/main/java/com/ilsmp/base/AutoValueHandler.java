@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ilsmp.base.util.EncryptUtil;
 import com.ilsmp.base.util.JsonUtil;
 import com.ilsmp.base.util.ServletUtil;
+import com.ilsmp.base.util.StringUtil;
 import com.ilsmp.base.util.TimeUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -89,18 +90,22 @@ public class AutoValueHandler {
 
     private Object activeAutoValue(ProceedingJoinPoint joinPoint, List<Object> list, Boolean isSave) {
         list.forEach(arg -> {
-            if (arg instanceof List && ((List) arg).size() > 0) {
+            if (arg instanceof List && !((List<?>) arg).isEmpty()) {
                 long updateVersion = System.currentTimeMillis();
-                ((List) arg).forEach(item -> {
+                ((List<?>) arg).forEach(item -> {
                     if (item instanceof BaseEntityVersion) {
                         getAnnotation(item, updateVersion, isSave);
+                    } else if (item instanceof BaseEntity) {
+                        getAnnotation(item, updateVersion, true);
                     }
                 });
             } else if (arg instanceof BaseEntityVersion) {
                 getAnnotation(arg, System.currentTimeMillis(), isSave);
+            } else if (arg instanceof BaseEntity) {
+                getAnnotation(arg, System.currentTimeMillis(), true);
             }
         });
-        Object obj = null;
+        Object obj;
         try {
             obj = joinPoint.proceed();
         } catch (Throwable throwable) {
@@ -109,7 +114,10 @@ public class AutoValueHandler {
                 return null;
             } else {
                 tryNum.set(tryNum.get()+1);
-                log.error("自定义AOP重试{}次异常：{}", tryNum.get(), throwable);
+                log.error("自定义AOP重试{}次", tryNum.get());
+                if (tryNum.get() == 1) {
+                    log.error("异常:",throwable);
+                }
                 obj = activeAutoValue(joinPoint, list, isSave);
             }
         }
@@ -118,12 +126,10 @@ public class AutoValueHandler {
 
     @SneakyThrows
     private void getAnnotation(Object bean, long updateVersion, Boolean isSave) {
-        /**
-         * 利用Java反射机制注入属性
-         */
+        // 利用Java反射机制注入属性
         Class<?> aClass = bean.getClass();
         List<Field> fields = new ArrayList<>(Arrays.asList(aClass.getDeclaredFields()));
-        while (!BaseEntityVersion.class.equals(aClass)) {
+        while (!BaseEntity.class.equals(aClass)) {
             aClass = aClass.getSuperclass();
             fields.addAll(Arrays.asList(aClass.getDeclaredFields()));
         }
@@ -157,15 +163,15 @@ public class AutoValueHandler {
                             }
                             Field targetField = bean.getClass().getDeclaredField(fieldName);
                             targetField.setAccessible(true);
-                            String targetValue = JsonUtil.writeJsonStr(targetField.get(bean));
-                            if (targetValue != null && !"null".equals(targetValue) && tryNum.get() < 2) {
+                            Object targetValue = targetField.get(bean);
+                            if (!StringUtil.isEmpty(targetValue) && tryNum.get() < 2) {
                                 return;
                             } else {
-                                if (targetValue == null || targetValue.equals("null")) {
+                                if (!StringUtil.isEmpty(targetValue)) {
                                     targetValue = "";
                                 }
                             }
-                            long fieldCode = EncryptUtil.crc32FromStr(property + targetValue);
+                            long fieldCode = EncryptUtil.crc32FromStr(property + targetValue.toString());
                             field.setAccessible(false);
                             field = targetField;
                             // 设置值
@@ -176,7 +182,6 @@ public class AutoValueHandler {
                     }
                 }
             }
-
         }
     }
 
