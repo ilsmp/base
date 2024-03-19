@@ -62,7 +62,6 @@ public class BaseEntityVersion extends BaseEntity {
             type = "Long", format = "bigint", example = "123", defaultValue = "123")
     @Column(name = "create_user", nullable = false, columnDefinition = "bigint default 0 COMMENT" +
             " '创建用户'")
-    @JsonIgnore
     protected Long createUser;
 
     /**
@@ -83,7 +82,6 @@ public class BaseEntityVersion extends BaseEntity {
     @Schema(description = "最后修改用户，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "Long", format = "bigint", example = "123", defaultValue = "123")
     @Column(name = "modify_user", nullable = false, columnDefinition = "bigint default 0 COMMENT '最后修改用户'")
-    @JsonIgnore
     protected Long modifyUser;
 
 }
