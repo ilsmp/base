@@ -78,7 +78,7 @@ public class JpaConfig implements AuditorAware<Long> {
     @Override
     public Optional<Long> getCurrentAuditor() {
         if (StringUtil.isEmpty(ServletUtil.getRequestObject(userId))) {
-            return Optional.of(0L);
+            return Optional.of(1L);
         } else {
             return Optional.ofNullable((Long) ServletUtil.getRequestObject(userId));
         }

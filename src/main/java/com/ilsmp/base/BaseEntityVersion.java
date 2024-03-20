@@ -3,7 +3,7 @@ package com.ilsmp.base;
 
 import java.sql.Timestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -42,7 +42,7 @@ public class BaseEntityVersion extends BaseEntity {
     @Schema(description = "是否被删除,不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "Short", format = "short", example = "0", defaultValue = "0")
     @Column(name = "deleted", nullable = true, columnDefinition = "smallint default 0 COMMENT '是否被删除'")
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     protected Integer deleted;
 
     /**
