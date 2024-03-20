@@ -111,13 +111,10 @@ public class AutoValueHandler {
         } catch (Throwable throwable) {
             if (tryNum.get() > 2) {
                 tryNum.set(0);
-                return null;
+                throw new RuntimeException(throwable);
             } else {
                 tryNum.set(tryNum.get()+1);
                 log.error("自定义AOP重试{}次", tryNum.get());
-                if (tryNum.get() == 1) {
-                    log.error("异常:",throwable);
-                }
                 obj = activeAutoValue(joinPoint, list, isSave);
             }
         }
