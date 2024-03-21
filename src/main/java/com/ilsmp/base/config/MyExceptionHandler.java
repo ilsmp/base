@@ -34,14 +34,14 @@ public class MyExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Response<Object>> handle(HttpServletRequest request, HttpServletResponse response,
-                                                   Exception ex) {
-        log.error(String.format("exception-request-id<%s>", response.getHeader("request-id")), ex);
-        String message = getExceptionMessage(ex);
+                                                   Throwable throwable) {
+        log.error(String.format("exception-request-id<%s>", response.getHeader("request-id")), throwable);
+        String message = getExceptionMessage(throwable);
         if (StringUtil.isEmpty(message)) {
             message = "请求异常请查看日志或联系管理员";
         }
-        if (ex instanceof HttpStatusCodeException) {
-            return Response.withBody(message, HttpStatus.valueOf(((HttpStatusCodeException) ex).getStatusCode().value()));
+        if (throwable instanceof HttpStatusCodeException) {
+            return Response.withBody(message, HttpStatus.valueOf(((HttpStatusCodeException) throwable).getStatusCode().value()));
         } else {
             return Response.withBody(message, HttpStatus.valueOf(400));
         }
