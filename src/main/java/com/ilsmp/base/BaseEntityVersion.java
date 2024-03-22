@@ -51,7 +51,8 @@ public class BaseEntityVersion extends BaseEntity {
     @CreatedDate
     @Schema(description = "创建时间，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "java.sql.timestamp", example = "1586666666000", defaultValue = "1586666666000")
-    @Column(name = "create_timestamp", nullable = false, columnDefinition = "timestamp COMMENT '创建时间'")
+    @Column(name = "create_timestamp", nullable = false,
+            columnDefinition = "timestamp default CURRENT_TIMESTAMP COMMENT '创建时间'")
     protected Timestamp createTimestamp;
 
     /**
@@ -60,8 +61,7 @@ public class BaseEntityVersion extends BaseEntity {
     @CreatedBy
     @Schema(description = "创建用户，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "Long", format = "bigint", example = "123", defaultValue = "123")
-    @Column(name = "create_user", nullable = false, columnDefinition = "bigint default 0 COMMENT" +
-            " '创建用户'")
+    @Column(name = "create_user", nullable = false, columnDefinition = "bigint default 1 COMMENT '创建用户'")
     protected Long createUser;
 
     /**
@@ -70,9 +70,8 @@ public class BaseEntityVersion extends BaseEntity {
     @LastModifiedDate
     @Schema(description = "最后修改时间，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "java.sql.timestamp", example = "1586666666000", defaultValue = "1586666666000")
-    @Column(name = "modify_timestamp", nullable = false, columnDefinition =
-            "timestamp " +
-            "COMMENT '最后修改时间'")
+    @Column(name = "modify_timestamp", nullable = false,
+            columnDefinition = "timestamp default CURRENT_TIMESTAMP COMMENT '最后修改时间'")
     protected Timestamp modifyTimestamp;
 
     /**
@@ -81,7 +80,7 @@ public class BaseEntityVersion extends BaseEntity {
     @LastModifiedBy
     @Schema(description = "最后修改用户，不传", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true,
             type = "Long", format = "bigint", example = "123", defaultValue = "123")
-    @Column(name = "modify_user", nullable = false, columnDefinition = "bigint default 0 COMMENT '最后修改用户'")
+    @Column(name = "modify_user", nullable = false, columnDefinition = "bigint default 1 COMMENT '最后修改用户'")
     protected Long modifyUser;
 
 }
